@@ -4,9 +4,9 @@ TAC Online Spiel
 ## Credits
 Derived from https://www.youtube.com/watch?v=_fx7FQ3SP0U&list=PLzMcBGfZo4-kR7Rh-7JCVDN8lm3Utumvq
 
-- [ ] creating a client using sockets
-- [ ] creating a server
-- [ ] sending and receiving information from server
+- [x] creating a client using sockets
+- [x] creating a server
+- [x] sending and receiving information from server
 - [ ] connecting multiple clients
 - [ ] sending objects with pickle
 - [ ] online rock paper scissors part 1
