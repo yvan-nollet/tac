@@ -6,8 +6,9 @@ authors = ["Yvan Nollet <yvan.nollet@protonmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 pygame = "^2.0.1"
+setuptools = "^60.3.1"
 
 [tool.poetry.dev-dependencies]
 
