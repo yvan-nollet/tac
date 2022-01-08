@@ -1,4 +1,6 @@
+import typing as t
 import pygame
+from network import Network
 
 width = 500
 height = 500
@@ -34,34 +36,56 @@ class Player:
             self.y -= self.val
         elif keys[pygame.K_DOWN]:
             self.y += self.val
+        
+        self.update()
 
+    def update(self):
         self.rect = (self.x, self.y, self.width, self.height)
 
 
-def redraw_window(win, player: Player) -> None:
+def read_pos(s: str) -> t.Tuple[int, int]:
+    print(f"s: {s}")
+    s = s.split(",")
+    return int(s[0]), int(s[1])
+
+def make_pos(tup: t.Tuple[int, int]) -> str:
+    return str(tup[0]) + "," + str(tup[1])
+
+def redraw_window(win, player: Player, player2: Player) -> None:
     """Redraw the window."""
 
     win.fill((255, 255, 255))
     player.draw(win)
+    player2.draw(win)
     pygame.display.update()
 
-
-p = Player(50, 50, 100, 100, (0, 255, 0))
 
 
 def main():
     """Main loop."""
     run = True
+    n = Network()
+    startPos = read_pos(n.getPos())
+    p = Player(startPos[0], startPos[1], 100, 100, (0, 255, 0))
+    p2 = Player(0, 0, 100, 100, (0, 255, 0))
     clock = pygame.time.Clock()
+
     while run:
         clock.tick(60)
+        _pos = n.send(make_pos((p.x, p.y)))
+        print(f"pos: {_pos}")
+        p2Pos = read_pos(_pos)
+        p2.x = p2Pos[0]
+        p2.y = p2Pos[1]
+        p2.update()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
                 pygame.quit()
 
         p.move()
-        redraw_window(win, p)
+        redraw_window(win, p, p2)
 
 
 main()
